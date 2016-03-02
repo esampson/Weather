@@ -66,6 +66,12 @@ void finish_with_error(MYSQL *con)
   exit(1);
 }
 
+float absfl(float val){
+
+  if (val<0) return(val*-1.0);
+  else return(val);
+}
+
 int main(int argc, char** argv){
 
   Data data;
@@ -173,26 +179,26 @@ int main(int argc, char** argv){
            if (mFlag) printf("  Delta M: %lf\n",dmc);
            char request[255], r2[255];
            strcpy(request, "INSERT INTO weather.Sensor_Entry (ID, SENSOR, TIME");
-           if (tFlag == 1 && abs(dtc) < .009) strcat(request, ", TEMPERATURE, DTC");
-           if (hFlag == 1 && abs(dhc) < .034) strcat(request, ", HUMIDITY, DHC");
-           if (pFlag == 1 && abs(dpc) < .00025) strcat(request, ", PRESSURE, DPC");
-           if (mFlag == 1 && abs(dmc) <.21) strcat(request, ", MOISTURE, DMC");
+           if (tFlag == 1 && absfl(float(dtc)) < .009) strcat(request, ", TEMPERATURE, DTC");
+           if (hFlag == 1 && absfl(float(dhc)) < .034) strcat(request, ", HUMIDITY, DHC");
+           if (pFlag == 1 && absfl(float(dpc)) < .00025) strcat(request, ", PRESSURE, DPC");
+           if (mFlag == 1 && absfl(float(dmc)) <.21) strcat(request, ", MOISTURE, DMC");
            strcat(request, ") VALUES (NULL, ");
            sprintf(r2, "%d, CURRENT_TIMESTAMP", data.sensor);
            strcat(request, r2);
-           if (tFlag == 1 && abs(dtc) < .009) {
+           if (tFlag == 1 && absfl(float(dtc)) < .009) {
              sprintf(r2,", %.1f, %lf",data.temperature,dtc);
              strcat(request, r2);
            }
-           if (hFlag == 1 && abs(dhc) < .034) {
+           if (hFlag == 1 && absfl(float(dhc)) < .034) {
              sprintf(r2,", %.1f, %lf",data.humidity,dhc);
              strcat(request, r2);
            }
-           if (pFlag == 1 && abs(dpc) < .00025) {
+           if (pFlag == 1 && absfl(float(dpc)) < .00025) {
              sprintf(r2,", %.3f, %lf",data.pressure,dpc);
              strcat(request, r2);
            }
-           if (mFlag == 1 && abs(dmc)<.21) {
+           if (mFlag == 1 && absfl(float(dmc))<.21) {
              sprintf(r2,", %f, %lf",data.moisture,dmc);
              strcat(request, r2);
            }
