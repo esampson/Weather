@@ -201,7 +201,7 @@ int main(int argc, char** argv){
                 char request[255], r2[255];
                 strcpy(request, "INSERT INTO weather.Sensor_Entry (ID, SENSOR, TIME");
                 if (tFlag == 1 && absfl(float(dtc)) < .009) strcat(request, ", TEMPERATURE, DTC");
-                if (hFlag == 1 && absfl(float(dhc)) < .034) strcat(request, ", HUMIDITY, DHC");
+                if (hFlag == 1 && absfl(float(dhc)) < .032) strcat(request, ", HUMIDITY, DHC");
                 if (pFlag == 1 && absfl(float(dpc)) < .00025) strcat(request, ", PRESSURE, DPC");
                 if (mFlag == 1 && absfl(float(dmc)) <.21) strcat(request, ", MOISTURE, DMC");
                 strcat(request, ") VALUES (NULL, ");
