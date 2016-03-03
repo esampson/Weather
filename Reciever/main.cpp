@@ -211,7 +211,7 @@ int main(int argc, char** argv){
                     sprintf(r2,", %.1f, %lf",data.temperature,dtc);
                     strcat(request, r2);
                 }
-                if (hFlag == 1 && absfl(float(dhc)) < .034) {
+                if (hFlag == 1 && absfl(float(dhc)) < .032) {
                     sprintf(r2,", %.1f, %lf",data.humidity,dhc);
                     strcat(request, r2);
                 }
