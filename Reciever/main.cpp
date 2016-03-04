@@ -200,14 +200,14 @@ int main(int argc, char** argv){
 
                 char request[255], r2[255];
                 strcpy(request, "INSERT INTO weather.Sensor_Entry (ID, SENSOR, TIME");
-                if (tFlag == 1 && absfl(float(dtc)) < .009) strcat(request, ", TEMPERATURE, DTC");
+                if (tFlag == 1 && absfl(float(dtc)) < .0085) strcat(request, ", TEMPERATURE, DTC");
                 if (hFlag == 1 && absfl(float(dhc)) < .032) strcat(request, ", HUMIDITY, DHC");
                 if (pFlag == 1 && absfl(float(dpc)) < .00025) strcat(request, ", PRESSURE, DPC");
-                if (mFlag == 1 && absfl(float(dmc)) <.21) strcat(request, ", MOISTURE, DMC");
+                if (mFlag == 1 && absfl(float(dmc)) <.1) strcat(request, ", MOISTURE, DMC");
                 strcat(request, ") VALUES (NULL, ");
                 sprintf(r2, "%d, CURRENT_TIMESTAMP", data.sensor);
                 strcat(request, r2);
-                if (tFlag == 1 && absfl(float(dtc)) < .009) {
+                if (tFlag == 1 && absfl(float(dtc)) < .0085) {
                     sprintf(r2,", %.1f, %lf",data.temperature,dtc);
                     strcat(request, r2);
                 }
@@ -219,7 +219,7 @@ int main(int argc, char** argv){
                     sprintf(r2,", %.3f, %lf",data.pressure,dpc);
                     strcat(request, r2);
                 }
-                if (mFlag == 1 && absfl(float(dmc))<.21) {
+                if (mFlag == 1 && absfl(float(dmc))<.1) {
                     sprintf(r2,", %f, %lf",data.moisture,dmc);
                     strcat(request, r2);
                 }
