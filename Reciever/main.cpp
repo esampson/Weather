@@ -126,10 +126,20 @@ int main(int argc, char** argv){
 
             // assign the results return to the MYSQL_RES pointer
             char r2[] = "SELECT %s, TIMESTAMPDIFF(SECOND,TIME, CURRENT_TIMESTAMP) as DELTAT FROM Sensor_Entry WHERE SENSOR=%d and %s IS NOT NULL ORDER BY TIME DESC LIMIT 1;";
+            char r3[] = "SELECT TIMESTAMPDIFF(SECOND,TIME, CURRENT_TIMESTAMP) as DELTAT FROM Sensor_Entry WHERE SENSOR=%d ORDER BY TIME DESC LIMIT 1;";
 
             char request[255];
-            if (data.sensor != 0) {
-                unsigned long *lengths;
+            char lbuff [10];
+            double lval;
+            unsigned long *lengths;
+            sprintf (request,r3, data.sensor);
+            res = mysql_perform_query(conn, request);
+            row = mysql_fetch_row(res);
+            lengths = mysql_fetch_lengths(res);
+            sprintf (lbuff, "%.*s ", (int) lengths[0], row[0] ? row[0] : "NULL");
+            sscanf (lbuff,"%lf", &lval);
+            mysql_free_result(res);
+            if (data.sensor != 0 && lval > 10) {
                 char tbuff [10];
                 char hbuff [10];
                 char pbuff [10];
@@ -199,13 +209,13 @@ int main(int argc, char** argv){
                 }
 
                 char request[255], r2[255];
-                strcpy(request, "INSERT INTO weather.Sensor_Entry (ID, SENSOR, TIME");
+                strcpy(request, "INSERT INTO weather.Sensor_Entry (ID, SENSOR, TIME, LEVEL");
                 if (tFlag == 1 && absfl(float(dtc)) < .0085) strcat(request, ", TEMPERATURE, DTC");
                 if (hFlag == 1 && absfl(float(dhc)) < .032) strcat(request, ", HUMIDITY, DHC");
                 if (pFlag == 1 && absfl(float(dpc)) < .00025) strcat(request, ", PRESSURE, DPC");
                 if (mFlag == 1 && absfl(float(dmc)) <.008) strcat(request, ", MOISTURE, DMC");
                 strcat(request, ") VALUES (NULL, ");
-                sprintf(r2, "%d, CURRENT_TIMESTAMP", data.sensor);
+                sprintf(r2, "%d, CURRENT_TIMESTAMP, %d", data.sensor, data.level);
                 strcat(request, r2);
                 if (tFlag == 1 && absfl(float(dtc)) < .0085) {
                     sprintf(r2,", %.1f, %lf",data.temperature,dtc);
