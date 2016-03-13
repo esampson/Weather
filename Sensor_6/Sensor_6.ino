@@ -170,5 +170,12 @@ void loop(void) {
   delay(1000);
   Sleepy::loseSomeTime(55000);
   Sleepy::loseSomeTime(60000);
-  Sleepy::loseSomeTime(30000);
+  Sleepy::loseSomeTime(60000);
+  Sleepy::loseSomeTime(60000);
+  Sleepy::loseSomeTime(60000);
+  Sleepy::loseSomeTime(60000);
+  Sleepy::loseSomeTime(60000);
+  Sleepy::loseSomeTime(60000);
+  Sleepy::loseSomeTime(60000);
+  Sleepy::loseSomeTime(60000);
 }

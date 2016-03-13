@@ -27,7 +27,7 @@ RF24 radio(9,10);
 int tFlag = 1;
 int hFlag = 1;
 int pFlag = 1;
-int mFlag = 0;
+int mFlag = 1;
 int flags = 0;
 
 ISR(WDT_vect) { Sleepy::watchdogEvent(); }
@@ -126,5 +126,14 @@ void loop() {
 
   radio.powerDown();
   delay(1000);
-  Sleepy::loseSomeTime(25000);
+  Sleepy::loseSomeTime(55000);
+  Sleepy::loseSomeTime(60000);
+  Sleepy::loseSomeTime(60000);
+  Sleepy::loseSomeTime(60000);
+  Sleepy::loseSomeTime(60000);
+  Sleepy::loseSomeTime(60000);
+  Sleepy::loseSomeTime(60000);
+  Sleepy::loseSomeTime(60000);
+  Sleepy::loseSomeTime(60000);
+  Sleepy::loseSomeTime(60000);
 }
